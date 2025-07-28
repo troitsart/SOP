@@ -3,11 +3,11 @@ Process
 ##28.07.25
 
     Создал виртуальную машину Debian
-    Провел все первоначальные конфигурации установил: vim, net-tools, git
+    Провел все первоначальные конфигурацииустановил: vim, net-tools, git
     
-     изменил ~/.bashrc - раскоментил ll
+    изменил ~/.bashrc - раскоментил ll
 
-    users: 	
+    users:	
         root : admin
 	    troits : aquarium
 
@@ -21,4 +21,4 @@ Process
     GIT TOKEN: 
         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
 
-    Клонировал репозиторий в ~/git: git clone git@github.com:troitsart/SOP.git
+    Клонировал репозиторий в ~/git:git clone git@github.com:troitsart/SOP.git
