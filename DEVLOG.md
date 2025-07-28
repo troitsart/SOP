@@ -4,7 +4,8 @@ Process
 
     Создал виртуальную машину Debian
     Провел все первоначальные конфигурации установил: vim, net-tools, git
-     ~/.bashrc - раскоментил ll
+    
+     изменил ~/.bashrc - раскоментил ll
 
     users: 	
         root : admin
