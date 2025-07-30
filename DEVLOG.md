@@ -55,25 +55,40 @@ Process
 
 
     пробрасываю порты:
-        останавливаю ufw во избежания конфликта:
-        sudo systemctl stop ufw
-        sudo systemctl disable ufw
+    останавливаю ufw во избежания конфликта:
+    sudo systemctl stop ufw
+    sudo systemctl disable ufw
 
-        sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination <MINIKUBE_IP>:<NODE_PORT>
-        sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+    sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination <MINIKUBE_IP>:<NODE_PORT>
+    sudo iptables -t nat -A POSTROUTING -j MASQUERADE
 
-        разрешаю трафик: sudo iptables -A FORWARD -p tcp --dport 30608 -j ACCEPT
+    разрешаю трафик: sudo iptables -A FORWARD -p tcp --dport 30608 -j ACCEPT
 
-        сохраняю правила: sudo apt install iptables-persistent -y
-                            sudo netfilter-persistent save
-        
-        apache доступен по: http://machine-1:8080
+    сохраняю правила: sudo apt install iptables-persistent -y
+                        sudo netfilter-persistent save
+    
+    apache доступен по: http://machine-1:8080
 
-        ПРИ РЕБУТ НУЖНО:
-            заново запустить minikube start --driver=docker
+    ПРИ РЕБУТ НУЖНО:
+        заново запустить minikube start --driver=docker
 
-        Нужно проработать, где будут хранится файлы приложения
-        mkdir /usr/local/sop
+    Нужно проработать, где будут хранится файлы приложения
+    mkdir /usr/local/sop
 
-        добавил ссылку на front файлы:
-        ln -sT /home/troits/git/SOP/front front
+    добавил ссылку на front файлы:
+    ln -sT /home/troits/git/SOP/front front #TODO НАДО УДАЛИТЬ
+
+    Сейчас изменяю манифест apache, добавляю репозиторий в под
+
+    добавил репозиторий на сервак апача
+    перезапуск пода: kubectl rollout restart deployment/apache-deploymen
+
+
+##30.07.25
+
+    меняю подход
+    изучаю docker, делаю собственный образ для apache-server
+    создал Dockerfile для apache-server
+    залил image на dockerhub : troitsart/apache-server
+    
+
