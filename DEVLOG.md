@@ -90,5 +90,10 @@ Process
     изучаю docker, делаю собственный образ для apache-server
     создал Dockerfile для apache-server
     залил image на dockerhub : troitsart/apache-server
-    
 
+    Развернул текущий образ на prod тачке (machine-1)
+    сервер доступен по адресу:  <minikube_ip>:<service_port>
+    
+    нужно перекинуть порты, сделать доступ извне
+
+    kubectl port-forward --address 0.0.0.0 svc/my-app-service 8080:80
