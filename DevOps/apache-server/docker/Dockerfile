@@ -10,6 +10,6 @@ RUN ln -sT /opt/repos/front/docs /var/www/docs && ln -sT /opt/repos/front/conf/a
 
 RUN echo "IncludeOptional custom/*.conf" >> /etc/apache2/apache2.conf
 
-RUN service apache2 reload
+RUN service apache2 reloadgit 
 
 CMD ["apache2ctl", "-D", "FOREGROUND"] 

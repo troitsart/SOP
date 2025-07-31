@@ -104,3 +104,10 @@ Process
     docker pull troitsart/apache-server:v1.0
     docker run -d -p 80:80 troitsart/apache-server:v1.0
     sudo usermod -aG docker $USER
+
+
+    APACHE:
+    sudo a2ensite multipage.conf
+    sudo systemctl reload apache2
+
+    ln -sT /opt/repos/front/conf/apache custom
