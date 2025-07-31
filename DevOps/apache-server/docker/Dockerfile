@@ -6,6 +6,10 @@ RUN mkdir /opt/repos
 
 RUN git clone https://troitsart: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@github.com/troitsart/SOP.git /opt/repos
 
-RUN ln -sT /opt/repos/SOP/front/docs /var/www/docs
+RUN ln -sT /opt/repos/front/docs /var/www/docs && ln -sT /opt/repos/front/conf/apache /etc/apache2/custom
+
+RUN echo "IncludeOptional custom/*.conf" >> /etc/apache2/apache2.conf
+
+RUN service apache2 reload
 
 CMD ["apache2ctl", "-D", "FOREGROUND"] 
