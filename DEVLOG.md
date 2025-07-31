@@ -23,7 +23,7 @@ Process
     GIT TOKEN: 
         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
 
-    Клонировал репозиторий в ~/git:git clone git@github.com:troitsart/SOP.git
+    Клонировал репозиторий в ~/git:git clone git@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github.com:troitsart/SOP.git
 
 
     устанавливаем docker
@@ -97,3 +97,10 @@ Process
     нужно перекинуть порты, сделать доступ извне
 
     kubectl port-forward --address 0.0.0.0 svc/my-app-service 8080:80
+
+##31.07.25
+
+    команды для подгрузки -> запуска контейнера
+    docker pull troitsart/apache-server:v1.0
+    docker run -d -p 80:80 troitsart/apache-server:v1.0
+    sudo usermod -aG docker $USER
