@@ -12,4 +12,4 @@ RUN echo "IncludeOptional custom/*.conf" >> /etc/apache2/apache2.conf
 
 RUN /opt/repos/DevOps/auto-pull.sh
 
-CMD ["apache2ctl", "-D", "FOREGROUND"] 
+CMD ["apache2ctl", "-D", "FOREGROUND", "&&", "/bin/bash", "/opt/repos/DevoPs/auto-pull.sh"] 
