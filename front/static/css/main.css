@@ -1,0 +1,87 @@
+/* Базовые стили */
+:root {
+    --blue: #3974ff;
+    --white: #ffffff;
+    --white-50: rgba(255, 255, 255, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Компоненты */
+.header {
+    background-color: var(--blue);
+    padding: 0 0 0 60px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+
+.header__title {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.main {
+    padding: 20px;
+    display: flex;
+    gap: 30px;
+}
+
+.panel {
+    width: 172px;
+    min-height: 45px;
+    padding: 8px;
+    background: var(--blue);
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+.panel__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.panel__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+}
+
+.panel__subtitle {
+    color: var(--white-50);
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+.panel__title {
+    color: var(--white);
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+.panel__arrow {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    filter: brightness(0) invert(1); /* Делаем белую стрелку */
+    transition: transform 0.2s;
+}
