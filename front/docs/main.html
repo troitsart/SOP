@@ -12,16 +12,65 @@
         <h1 class="header__title">Сервис Оформления Посадки (СОП)</h1>
     </header>
     
-    <main class="main">
-        <section class="panel">
-            <div class="panel__inner">  <!-- Новый контейнер -->
-                <div class="panel__content">
-                    <span class="panel__subtitle">Рейс</span>
-                    <span class="panel__title">Ничего не выбрано</span>
+    <div class="main-container">
+        <!-- Левая панель -->
+        <div class="left-panel">
+            <div class="panel">
+                <div class="panel__inner">
+                    <div class="panel__content">
+                        <span class="panel__subtitle">Рейс</span>
+                        <span class="panel__title">Ничего не выбрано</span>
+                    </div>
+                    <img src="/static/resources/arrow.svg" alt="Стрелка" class="panel__arrow">
                 </div>
-                <img src="/static/resources/arrow.svg" alt="Стрелка" class="panel__arrow">
             </div>
-        </section>        
-    </main>
+        </div>
+
+        <!-- Правая часть с таблицей -->
+        <div class="right-content">
+            <div class="table__search">
+                <input class="input_table_search" type="text" placeholder="Поиск...">
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>PNR</th>
+                        <th>Фамилия Имя Отчество</th>
+                        <th>ПС</th>
+                        <th>КЛ</th>
+                        <th>Подкл.</th>
+                        <th>Кр</th>
+                        <th>П/н</th>
+                        <th>Билет</th>
+                        <th>Документ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0452М</td>
+                        <td>ТРОИЦКИЙ АРТЁМ ИЛЬИЧ</td>
+                        <td>ВЭ</td>
+                        <td>Э</td>
+                        <td>Э</td>
+                        <td>1</td>
+                        <td>РЩН</td>
+                        <td>PB832492</td>
+                        <td>4521089765</td>
+                    </tr>
+                    <tr>
+                        <td>0452М</td>
+                        <td>ТРОИЦКИЙ АРТЁМ ИЛЬИЧ</td>
+                        <td>ВЭ</td>
+                        <td>Э</td>
+                        <td>Э</td>
+                        <td>1</td>
+                        <td>РЩН</td>
+                        <td>PB832492</td>
+                        <td>4521089765</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,14 +1,19 @@
+/* Reset and base styles */
+* {
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    box-sizing: border-box;
+}
+
 /* Базовые стили */
 :root {
     --blue: #3974ff;
     --white: #ffffff;
     --white-50: rgba(255, 255, 255, 0.5);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    --gray: rgba(239, 239, 239, 1);
+    --corner-radius: 4px;
+    --stroke: rgba(217, 217, 217, 1);
 }
 
 body {
@@ -32,19 +37,30 @@ body {
     font-size: 1.2rem;
 }
 
-.main {
-    padding: 20px;
+.main-container {
     display: flex;
+    padding: 20px;
+    padding-left: 60px;
     gap: 30px;
 }
 
-.panel {
+.left-panel {
     width: 172px;
+}
+
+.right-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.panel {
+    width: 100%;
     min-height: 45px;
     padding: 8px;
     background: var(--blue);
-    border-radius: 4px;
-    margin: 20px 0;
+    border-radius: var(--corner-radius);
 }
 
 .panel__inner {
@@ -82,6 +98,82 @@ body {
     width: 20px;
     height: 20px;
     margin-left: 8px;
-    filter: brightness(0) invert(1); /* Делаем белую стрелку */
+    filter: brightness(0) invert(1);
     transition: transform 0.2s;
 }
+
+.table__search {
+    width: 200px;
+    height: 30px;
+    padding: 5px 10px;
+    border: 1px solid var(--stroke);
+    border-radius: var(--corner-radius);
+}
+
+.input_table_search {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+
+.table {
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid var(--stroke);
+    table-layout: fixed;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 0 0 1px var(--stroke);
+}
+
+.table th {
+    font-weight: bold;
+    padding: 5px;
+    background: var(--blue);
+    border: 1px solid var(--stroke);
+    text-align: left;
+    color: var(--white);
+}
+
+.table td {
+    padding: 5px;
+    border: 1px solid var(--stroke);
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table tbody tr:nth-child(odd) {
+    background: var(--white);
+}
+
+.table tbody tr:nth-child(even) {
+    background: var(--gray);
+}
+
+.table tr:first-child th:first-child {
+    border-top-left-radius: 8px;
+}
+.table tr:first-child th:last-child {
+    border-top-right-radius: 8px;
+}
+.table tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+.table tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+/* Ширины колонок */
+.table th:nth-child(1), .table td:nth-child(1) { width: 8%; }
+.table th:nth-child(2), .table td:nth-child(2) { width: 25%; }
+.table th:nth-child(3), .table td:nth-child(3) { width: 5%; }
+.table th:nth-child(4), .table td:nth-child(4) { width: 5%; }
+.table th:nth-child(5), .table td:nth-child(5) { width: 8%; }
+.table th:nth-child(6), .table td:nth-child(6) { width: 5%; }
+.table th:nth-child(7), .table td:nth-child(7) { width: 8%; }
+.table th:nth-child(8), .table td:nth-child(8) { width: 10%; }
+.table th:nth-child(9), .table td:nth-child(9) { width: 10%; }
