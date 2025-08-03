@@ -39,8 +39,7 @@ body {
 
 .main-container {
     display: flex;
-    padding: 20px;
-    padding-left: 60px;
+    padding: 20px 60px;
     gap: 30px;
 }
 
@@ -61,6 +60,7 @@ body {
     padding: 8px;
     background: var(--blue);
     border-radius: var(--corner-radius);
+    margin-bottom: 5px;
 }
 
 .panel__inner {
@@ -144,6 +144,14 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    transition: background-color 0.3s ease;
+    
+}
+
+.table tr:hover td {
+    background-color: rgba(167, 167, 167, 0.5); /* Серый фон (можно заменить на любой цвет) */
+    /* Дополнительные стили при наведении (опционально) */
+    cursor: pointer;
 }
 
 .table tbody tr:nth-child(odd) {
@@ -177,3 +185,106 @@ body {
 .table th:nth-child(7), .table td:nth-child(7) { width: 8%; }
 .table th:nth-child(8), .table td:nth-child(8) { width: 10%; }
 .table th:nth-child(9), .table td:nth-child(9) { width: 10%; }
+
+
+.table-wrapper {
+    max-height: calc(8 * 31px + 2px); /* Высота для 8 строк + границы */
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid var(--stroke);
+    margin-top: -1px; /* Компенсируем двойную границу */
+}
+.table-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.table-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--blue);
+    border-radius: 3px;
+}
+
+.scroll-table-body {
+    height: calc(8 * 31px + 2px); /* Высота 8 строк + границы */
+    overflow-y: auto;
+    border-radius: 0 0 8px 8px;
+    border: 1px solid var(--stroke);
+    border-top: none;
+    margin-top: -1px;
+}
+
+.scroll-table table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: separate;
+}
+
+.scroll-table thead th {
+    font-weight: bold;
+    padding: 5px;
+    background: var(--blue);
+    border: 1px solid var(--stroke);
+    text-align: left;
+    color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.scroll-table tbody td {
+    padding: 5px;
+    border: 1px solid var(--stroke);
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+.scroll-table tbody tr:hover td {
+    background-color: rgba(167, 167, 167, 0.5);
+    cursor: pointer;
+}
+
+.scroll-table tbody tr:nth-child(odd) {
+    background: var(--white);
+}
+
+.scroll-table tbody tr:nth-child(even) {
+    background: var(--gray);
+}
+
+/* Закругленные углы для первой строки */
+.scroll-table thead tr:first-child th:first-child {
+    border-top-left-radius: 8px;
+}
+.scroll-table thead tr:first-child th:last-child {
+    border-top-right-radius: 8px;
+}
+
+/* Закругленные углы для последней строки */
+.scroll-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+.scroll-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+/* Ширины колонок */
+.scroll-table th:nth-child(1), .scroll-table td:nth-child(1) { width: 8%; }
+.scroll-table th:nth-child(2), .scroll-table td:nth-child(2) { width: 25%; }
+.scroll-table th:nth-child(3), .scroll-table td:nth-child(3) { width: 5%; }
+.scroll-table th:nth-child(4), .scroll-table td:nth-child(4) { width: 5%; }
+.scroll-table th:nth-child(5), .scroll-table td:nth-child(5) { width: 8%; }
+.scroll-table th:nth-child(6), .scroll-table td:nth-child(6) { width: 5%; }
+.scroll-table th:nth-child(7), .scroll-table td:nth-child(7) { width: 8%; }
+.scroll-table th:nth-child(8), .scroll-table td:nth-child(8) { width: 10%; }
+.scroll-table th:nth-child(9), .scroll-table td:nth-child(9) { width: 10%; }
+
+/* Стили для скролла */
+.scroll-table-body::-webkit-scrollbar {
+    width: 6px;
+}
+.scroll-table-body::-webkit-scrollbar-thumb {
+    background-color: var(--blue);
+    border-radius: 3px;
+}
