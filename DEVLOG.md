@@ -111,3 +111,8 @@ Process
     sudo systemctl reload apache2
 
     ln -sT /opt/repos/front/conf/apache custom
+
+##05.08.25
+
+    Все дни писал фронт часть главной страницы
+    сейчас буду заниматься БД
