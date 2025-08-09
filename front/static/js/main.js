@@ -1,57 +1,86 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function() {
+    // Константы
     const ROW_HEIGHT = 40;
     const HEADER_HEIGHT = 30;
     const BASE_MAX_HEIGHT = 8 * ROW_HEIGHT + HEADER_HEIGHT;
 
-    const panelsData = [
-        { subtitle: "Рейс", title: "Ничего не выбрано", hasArrow: true },
-        { subtitle: "Борт", title: "Boeing 737-800", hasArrow: false },
-        { subtitle: "Компоновка", title: "Б8 Э60", hasArrow: false },
-        { subtitle: "ВС", title: "ТУЗ", hasArrow: false },
-        { subtitle: "Маршрут", title: "ДМД - РЩН", hasArrow: false },
-        { subtitle: "Вылет", title: "11:00", hasArrow: false },
-        { subtitle: "Регистрация до", title: "10:25", hasArrow: false },
-        { subtitle: "Тип", title: "Пассажирский", hasArrow: false },
-        { subtitle: "Статус", title: "Регистрация", hasArrow: false }
-    ];
+    // Инициализация панелей (синхронная часть)
+    function initPanels() {
+        const panelsData = [
+            { subtitle: "Рейс", title: "Ничего не выбрано", hasArrow: true },
+            { subtitle: "Борт", title: "Boeing 737-800", hasArrow: false },
+            { subtitle: "Компоновка", title: "Б8 Э60", hasArrow: false },
+            { subtitle: "ВС", title: "ТУЗ", hasArrow: false },
+            { subtitle: "Маршрут", title: "ДМД - РЩН", hasArrow: false },
+            { subtitle: "Вылет", title: "11:00", hasArrow: false },
+            { subtitle: "Регистрация до", title: "10:25", hasArrow: false },
+            { subtitle: "Тип", title: "Пассажирский", hasArrow: false },
+            { subtitle: "Статус", title: "Регистрация", hasArrow: false }
+        ];
 
-    const leftPanel = document.querySelector('.left-panel');
-    leftPanel.innerHTML = '';
+        const leftPanel = document.querySelector('.left-panel');
+        leftPanel.innerHTML = '';
 
-    panelsData.forEach(panel => {
-        const panelElement = document.createElement('div');
-        panelElement.className = 'panel';
-        panelElement.innerHTML = `
-            <div class="panel__inner">
-                <div class="panel__content">
-                    <span class="panel__subtitle">${panel.subtitle}</span>
-                    <span class="panel__title">${panel.title}</span>
+        panelsData.forEach(panel => {
+            const panelElement = document.createElement('div');
+            panelElement.className = 'panel';
+            panelElement.innerHTML = `
+                <div class="panel__inner">
+                    <div class="panel__content">
+                        <span class="panel__subtitle">${panel.subtitle}</span>
+                        <span class="panel__title">${panel.title}</span>
+                    </div>
+                    ${panel.hasArrow ? '<img src="/static/resources/arrow.svg" alt="Стрелка" class="panel__arrow">' : ''}
                 </div>
-                ${panel.hasArrow ? '<img src="/static/resources/arrow.svg" alt="Стрелка" class="panel__arrow">' : ''}
-            </div>
-        `;
-        leftPanel.appendChild(panelElement);
-    });
+            `;
+            leftPanel.appendChild(panelElement);
+        });
+    }
 
-    const tableData = fetch('http://machine-2:5001/api/passengers/get_passengers_by_flight');
+    // Основная функция инициализации таблицы
+    async function initTable() {
+        const tableContainer = document.querySelector('.table-scroll-container');
+        const thead = document.querySelector('.table-header thead');
+        const tbody = document.querySelector('.table-body tbody');
 
-    const tableContainer = document.querySelector('.table-scroll-container');
-    const thead = document.querySelector('.table-header thead');
-    const tbody = document.querySelector('.table-body tbody');
+        // Создаем заголовок для выбранных строк
+        const selectedRowsHeader = document.createElement('div');
+        selectedRowsHeader.className = 'selected-rows-header';
+        const selectedRowsTable = document.createElement('table');
+        selectedRowsTable.className = 'table';
+        const selectedRowsBody = document.createElement('tbody');
+        selectedRowsTable.appendChild(selectedRowsBody);
+        selectedRowsHeader.appendChild(selectedRowsTable);
+        thead.parentNode.insertBefore(selectedRowsHeader, thead.nextSibling);
 
-    const selectedRowsHeader = document.createElement('div');
-    selectedRowsHeader.className = 'selected-rows-header';
-    const selectedRowsTable = document.createElement('table');
-    selectedRowsTable.className = 'table';
-    const selectedRowsBody = document.createElement('tbody');
-    selectedRowsTable.appendChild(selectedRowsBody);
-    selectedRowsHeader.appendChild(selectedRowsTable);
+        const selectedRows = new Map();
 
-    thead.parentNode.insertBefore(selectedRowsHeader, thead.nextSibling);
+        try {
+            // Загрузка данных
+            const response = await fetch('/api/passengers/get_passengers_by_flight');
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const tableData = await response.json();
+            if (!Array.isArray(tableData)) throw new Error('Expected array');
+            
+            // Заполнение таблицы
+            fillTable(tableData);
+            
+            // Настройка контейнера
+            tableContainer.style.maxHeight = `${BASE_MAX_HEIGHT}px`;
+            
+            // Синхронизация размеров
+            setTimeout(() => {
+                syncColumnWidths();
+                updateContainerHeight();
+            }, 0);
+            
+        } catch (error) {
+            console.error('Failed to load passenger data:', error);
+            alert('Не удалось загрузить данные пассажиров. Пожалуйста, обновите страницу.');
+        }
 
-    const selectedRows = new Map();
-
-    function updatePassengerDetails() {
+            function updatePassengerDetails() {
         const passengersContainer = document.querySelector('.passanges');
         passengersContainer.innerHTML = '';
 
@@ -320,15 +349,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    fillTable(tableData);
-    tableContainer.style.maxHeight = `${BASE_MAX_HEIGHT}px`;
+        // ... остальные функции (fillTable, updatePassengerDetails и т.д.) остаются без изменений
+        // Они должны быть объявлены внутри initTable()
+    }
 
-    window.updateTableData = function (newData) {
-        fillTable(newData);
-    };
-
-    setTimeout(() => {
-        syncColumnWidths();
-        updateContainerHeight();
-    }, 0);
+    // Инициализация
+    initPanels();
+    initTable();
 });
