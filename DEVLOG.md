@@ -116,3 +116,7 @@ Process
 
     Все дни писал фронт часть главной страницы
     сейчас буду заниматься БД
+
+
+КЛОНИРОВАНИЕ РЕПА:
+git clone https://troitsart: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@github.com/troitsart/SOP.git
