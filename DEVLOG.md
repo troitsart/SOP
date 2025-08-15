@@ -21,9 +21,9 @@ Process
     Покрасил user root в красный, добавив в ./bashrc: export PS1='\[\e[1;41;37m\]\u@\h:\w#\[\e[0m\] ' 
 
     GIT TOKEN: 
-        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
+        TOKEN
 
-    Клонировал репозиторий в ~/git:git clone git@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github.com:troitsart/SOP.git
+    Клонировал репозиторий в ~/git:git clone git@TOKENgithub.com:troitsart/SOP.git
 
 
     устанавливаем docker
@@ -119,4 +119,4 @@ Process
 
 
 КЛОНИРОВАНИЕ РЕПА:
-git clone https://troitsart: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@github.com/troitsart/SOP.git
+git clone https://troitsart:TOKEN@github.com/troitsart/SOP.git
