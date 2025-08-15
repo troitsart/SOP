@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-apache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-apache
+  template:
+    metadata:
+      labels:
+        app: front-apache
+    spec:
+      volumes:
+      - name: static-data
+        emptyDir: {}
+      - name: apache-conf
+        configMap:
+          name: apache-conf
+          items:
+          - key: custom.conf
+            path: custom.conf
+          - key: httpd.conf
+            path: httpd.conf
+
+      initContainers:
+      - name: git-clone
+        image: alpine/git
+        env:
+        - name: GIT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: git-credentials
+              key: username
+        - name: GIT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: git-credentials
+              key: token
+        command:
+        - sh
+        - -c
+        - |
+          git clone https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/troitsart/SOP.git /data &&
+          cp -R /data/front/static/* /static/ &&
+          cp -R /data/front/docs/* /docs/
+        volumeMounts:
+        - name: static-data
+          mountPath: /static
+        - name: static-data
+          mountPath: /docs
+
+      containers:
+      - name: front-apache
+        image: httpd:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: static-data
+          mountPath: /usr/local/apache2/htdocs/static
+        - name: static-data
+          mountPath: /usr/local/apache2/htdocs/docs
+        - name: apache-conf
+          mountPath: /usr/local/apache2/conf/custom.conf
+          subPath: custom.conf
+        - name: apache-conf
+          mountPath: /usr/local/apache2/conf/httpd.conf
+          subPath: httpd.conf
